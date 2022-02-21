@@ -10,14 +10,38 @@ export function Home() {
 
   function handleAddTask(newTaskTitle: string) {
     //TODO - add new task
+    setTasks((currentTasks) => [
+      ...currentTasks,
+      {
+        id: new Date().getTime(),
+        title: newTaskTitle,
+        done: false
+      },
+    ]);
   }
 
   function handleToggleTaskDone(id: number) {
     //TODO - toggle task done if exists
+    setTasks((currentTasks) => {
+      const updatedTasks = currentTasks.map((task) => {
+        if (task.id !== id) {
+          return task;
+        }
+        
+        return {
+          ...task,
+          done: !task.done
+        }
+      });
+      return updatedTasks;
+    });
   }
 
   function handleRemoveTask(id: number) {
     //TODO - remove task from state
+    setTasks((currentTasks) => currentTasks.filter((task) => (
+      task.id !== id
+    )));
   }
 
   return (
